@@ -307,11 +307,12 @@ define(function(require) {
 
     //2014-10-17: intermin fix for projects without current kineoFork/js/utility
     if ($.fn.focusNoScroll === undefined) $.fn.focusNoScroll = function(){
-      var x = window.scrollX, y = window.scrollY;
+      var y = $(window).scrollTop();
       this[0].focus();
-      window.scrollTo(x, y);
+      window.scrollTo(null, y);
       return this; //chainability
     };
+
 
 
     return Narrative;
