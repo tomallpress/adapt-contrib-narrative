@@ -255,8 +255,14 @@ define(function(require) {
             
             if ($(event.currentTarget).hasClass('narrative-control-right')) {
                 stage++;
+                if (stage == numberOfItems-1) {
+                    $('.narrative-control-left').focusNoScroll();
+                }
             } else if ($(event.currentTarget).hasClass('narrative-control-left')) {
                 stage--;
+                if (stage == 0) {
+                   $('.narrative-control-right').focusNoScroll();
+                }
             }
             stage = (stage + numberOfItems) % numberOfItems;
             this.setStage(stage);
@@ -298,7 +304,16 @@ define(function(require) {
     });
     
     Adapt.register("narrative", Narrative);
-    
+
+    //2014-10-17: intermin fix for projects without current kineoFork/js/utility
+    if ($.fn.focusNoScroll === undefined) $.fn.focusNoScroll = function(){
+      var x = window.scrollX, y = window.scrollY;
+      this[0].focus();
+      window.scrollTo(x, y);
+      return this; //chainability
+    };
+
+
     return Narrative;
 
 });
