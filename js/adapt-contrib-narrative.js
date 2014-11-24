@@ -18,6 +18,10 @@ define(function(require) {
         },
 
         preRender: function () {
+            _.each(this.model.get('_items'), function(item) {
+                item.visited = false;
+            });
+            this.model.set('_stage', 0);
             this.listenTo(Adapt, 'device:changed', this.reRender, this);
             this.listenTo(Adapt, 'device:resize', this.resizeControl, this);
             this.setDeviceSize();
